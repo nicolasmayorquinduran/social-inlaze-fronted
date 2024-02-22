@@ -1,0 +1,43 @@
+<div class="navbar-container">
+  <!-- Top navbar  -->
+  <mat-toolbar class="navbar toolbar" color="primary">
+    <!-- <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" > -->
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/']" matTooltip="Home">
+      <h1>Social media</h1>
+    </a>
+    <!-- </mat-menu> -->
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon class="material-icons-outlined">Usuario</mat-icon>
+      <span fxShow fxHide.xs>
+        {{ userName }}
+      </span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above">
+      <a mat-menu-item (click)="signOut()">
+        <span>Salir</span>
+      </a>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #snav [opened]="true" fixedTopGap="56" class="sidenav">
+      <mat-nav-list>
+        <br />
+        <div fxLayout="column">
+          <div *ngFor="let menu of menuOptions">
+            <a [routerLink]="menu.url">
+              {{ menu.name }}
+            </a>
+          </div>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,5 +1,9 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
+import {
+  StorageService,
+  storageKeysEnum,
+} from 'src/app/core/services/storage.service';
+import { Router } from '@angular/router';
 
 interface sideMenuOption {
   name: string;
@@ -11,29 +15,33 @@ interface sideMenuOption {
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.sass'],
 })
-export class LayoutComponent implements OnInit {
-  userName: string = 'Nicolas';
+export class LayoutComponent {
+  showFiller: boolean = false;
+  userName: string = this.storageService.getItem(storageKeysEnum.userName);
+  activeRute: string = '';
   menuOptions: sideMenuOption[] = [
     {
-      name: 'Publicaciones',
-      url: 'mis-publicaciones',
+      name: 'Ver Muro',
+      url: 'muro',
+    },
+    {
+      name: 'Editar perfil',
+      url: 'perfil',
     },
   ];
-  // private _mobileQueryListener: () => void;
-  // mobileQuery: MediaQueryList;
-  // private media!: MediaMatcher;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-    // this.mobileQuery = this.media.matchMedia('(max-width: 1000px)');
-    // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    // this.mobileQuery.addListener(this._mobileQueryListener);
+  constructor(private storageService: StorageService, private router: Router) {}
+
+  onMenuOption(menuOptionName: string) {
+    this.activeRute = menuOptionName;
   }
 
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    // this.mobileQuery.removeListener(this._mobileQueryListener);
+  signOut() {
+    this.storageService.clear();
+    this.router.navigate(['']);
   }
 
-  signOut() {}
+  get userInitial(): string {
+    return this.userName ? this.userName[0] : '';
+  }
 }

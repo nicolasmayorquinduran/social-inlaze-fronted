@@ -1,0 +1,56 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="h-full flex flex-col p-8 items-center justify-center gap-8"
+>
+  <div class="flex flex-col">
+    <label>Nombre completo</label>
+    <input type="text" formControlName="FullName" />
+    <div
+      *ngIf="form.get('FullName')?.invalid && form.get('FullName')?.touched"
+      class="error"
+    >
+      <div *ngIf="form.get('FullName')?.hasError('required')" class="error">
+        El nombrel es requerido.
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <div
+      *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+      class="error"
+    >
+      <div *ngIf="form.get('email')?.hasError('required')" class="error">
+        El email es requerido.
+      </div>
+      <div *ngIf="form.get('email')?.hasError('email')" class="error">
+        El email no es válido.
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col" *ngIf="!user">
+    <label>Password</label>
+    <input type="password" formControlName="password" />
+    <div
+      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+      class="error"
+    >
+      <div *ngIf="form.get('password')?.hasError('required')" class="error">
+        La contraseña es requerida.
+      </div>
+      <div *ngIf="form.get('password')?.hasError('minlength')" class="error">
+        La contraseña debe tener al menos 6 caracteres.
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label>Edad</label>
+    <input type="text" formControlName="age" />
+  </div>
+
+  <button type="submit">Enviar</button>
+</form>

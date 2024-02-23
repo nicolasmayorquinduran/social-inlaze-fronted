@@ -1,8 +1,8 @@
 export interface userEntityInterface extends commonFieldsInterface {
   FullName: string;
   age: string;
-  email: number;
-  password: string;
+  email: string;
+  password?: string;
   posts?: postEntityInterface[];
 }
 export interface postEntityInterface extends commonFieldsInterface {

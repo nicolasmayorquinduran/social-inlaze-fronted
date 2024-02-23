@@ -12,7 +12,6 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
-  // Otras rutas si las tienes
 ];
 
 @NgModule({

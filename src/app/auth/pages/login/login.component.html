@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div
+  class="flex flex-col gap-8 items-center justify-center h-full p-32 bg-gray-900"
+>
+  <div class="flex flex-col items-center text-yellow-300">
+    <h1 class="font-black header">INLAZE</h1>
+    <H3>social</H3>
+  </div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="h-full flex flex-col p-8 items-center justify-center gap-8"
+  >
+    <div class="flex flex-col">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+      <div
+        *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+        class="error"
+      >
+        <div *ngIf="form.get('email')?.hasError('required')" class="error">
+          El email es requerido.
+        </div>
+        <div *ngIf="form.get('email')?.hasError('email')" class="error">
+          El email no es válido.
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+      <div
+        *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+        class="error"
+      >
+        <div *ngIf="form.get('password')?.hasError('required')" class="error">
+          La contraseña es requerida.
+        </div>
+        <div *ngIf="form.get('password')?.hasError('minlength')" class="error">
+          La contraseña debe tener al menos 6 caracteres.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Enviar</button>
+  </form>
+</div>

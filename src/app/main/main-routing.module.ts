@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FeedComponent } from './pages/feed/feed.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,8 +11,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'feed', pathMatch: 'full' },
-      { path: 'feed', component: FeedComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'muro', component: FeedComponent, canActivate: [AuthGuard] },
+      { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
     ],
   },
 ];

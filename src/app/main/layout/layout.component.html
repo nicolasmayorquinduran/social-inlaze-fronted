@@ -1,43 +1,45 @@
-<div class="navbar-container">
-  <!-- Top navbar  -->
-  <mat-toolbar class="navbar toolbar" color="primary">
-    <!-- <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" > -->
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <a [routerLink]="['/']" matTooltip="Home">
-      <h1>Social media</h1>
-    </a>
-    <!-- </mat-menu> -->
-
-    <button mat-button [matMenuTriggerFor]="userMenu">
-      <mat-icon class="material-icons-outlined">Usuario</mat-icon>
-      <span fxShow fxHide.xs>
-        {{ userName }}
-      </span>
-    </button>
-    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above">
-      <a mat-menu-item (click)="signOut()">
-        <span>Salir</span>
-      </a>
-    </mat-menu>
-  </mat-toolbar>
-
-  <mat-sidenav-container>
-    <mat-sidenav #snav [opened]="true" fixedTopGap="56" class="sidenav">
-      <mat-nav-list>
-        <br />
-        <div fxLayout="column">
-          <div *ngFor="let menu of menuOptions">
-            <a [routerLink]="menu.url">
-              {{ menu.name }}
-            </a>
-          </div>
+<mat-drawer-container class="h-full" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="p-8 flex flex-col items-center justify-center gap-4">
+      <a
+        [routerLink]="['/perfil']"
+        matTooltip="Home"
+        class="flex flex-col cursor-pointer items-center"
+      >
+        <div
+          class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold"
+        >
+          {{ userInitial }}
         </div>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+        <h1>{{ userName }}</h1>
+      </a>
+      <div *ngFor="let menu of menuOptions">
+        <a
+          [routerLink]="menu.url"
+          (click)="onMenuOption(menu.name)"
+          [ngClass]="{ 'text-lg font-black': activeRute === menu.name }"
+        >
+          {{ menu.name }}
+        </a>
+      </div>
+      <button mat-menu-item (click)="signOut()">Salir</button>
+    </div>
+  </mat-drawer>
+
+  <div class="p-8">
+    <button
+      type="button"
+      mat-button
+      (click)="drawer.toggle(); showFiller = !showFiller"
+    >
+      <i
+        [ngClass]="{
+          'fa-regular fa-rectangle-xmark': showFiller,
+          'fa-solid fa-bars': !showFiller,
+          'text-2xl': true
+        }"
+      ></i>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

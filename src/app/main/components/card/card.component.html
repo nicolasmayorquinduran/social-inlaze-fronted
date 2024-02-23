@@ -1,0 +1,69 @@
+<div
+  *ngIf="post"
+  class="flex flex-col gap-4 bg-white shadow-md rounded-md p-16"
+>
+  <div class="w-full flex flex-col gap-2 items-center text-gray-700">
+    <label>Titulo</label>
+    <input
+      *ngIf="isEditingPost"
+      type="text"
+      (input)="editPostField($event, 'title')"
+      [value]="post.title"
+      placeholder="busca por palabra clave"
+    />
+    <p *ngIf="!isEditingPost">{{ post.title }}</p>
+    <label>Contenido</label>
+    <input
+      *ngIf="isEditingPost"
+      type="text"
+      (input)="editPostField($event, 'content')"
+      [value]="post.content"
+      placeholder="busca por palabra clave"
+    />
+    <p *ngIf="!isEditingPost">{{ post.content }}</p>
+    <button *ngIf="isEditingPost" (click)="updatePost()">guardar</button>
+  </div>
+
+  <div class="flex flex-col gap-4 items-center mt-4 text-sm">
+    <p class="text-gray-700">Publicado por</p>
+    <div class="flex flex-col items-center">
+      <div
+        class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold"
+      >
+        {{ getUserInitial(post.user?.FullName) }}
+      </div>
+      <p class="text-gray-700 text-xl">{{ post.user?.FullName }}</p>
+    </div>
+
+    <div class="flex flex-col items-center mt-4">
+      <p class="text-gray-700">Edad: {{ post.user?.age }}</p>
+      <p class="text-gray-700">Correo electrónico: {{ post.user?.email }}</p>
+      <p class="text-gray-500">
+        Creado en: {{ post.createdAt | date : "medium" }}
+      </p>
+    </div>
+  </div>
+
+  <div class="flex w-full items-center justify-center gap-4 text-gray-700">
+    <div
+      (click)="addLike()"
+      class="shadow-lg shadow-indigo-500/40 rounded cursor-pointer"
+    >
+      <i class="fa-solid fa-thumbs-up text-blue-500"></i> {{ post.likes }}
+    </div>
+    <div
+      (click)="editPost()"
+      class="shadow-lg shadow-indigo-500/40 rounded cursor-pointer"
+      *ngIf="canEditPost"
+    >
+      <i class="fa-solid fa-pen-to-square text-blue-500"></i> editar
+    </div>
+    <div
+      (click)="deletePost()"
+      class="shadow-lg shadow-indigo-500/40 rounded cursor-pointer"
+      *ngIf="canEditPost"
+    >
+      <i class="fa-solid fa-trash text-red-500"></i> borrar
+    </div>
+  </div>
+</div>

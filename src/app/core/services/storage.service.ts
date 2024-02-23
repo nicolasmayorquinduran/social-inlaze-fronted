@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export enum storageKeysEnum {
   jwt = 'jwt',
   userId = 'userId',
+  userName = 'userName',
 }
 
 @Injectable({

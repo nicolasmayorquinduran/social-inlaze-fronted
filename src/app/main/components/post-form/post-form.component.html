@@ -1,0 +1,27 @@
+<form
+  *ngIf="isCreatingPost"
+  [formGroup]="form"
+  (ngSubmit)="createPost()"
+  class="h-full flex flex-col p-8 items-center justify-center gap-8"
+>
+  <div class="flex flex-col">
+    <label>Titulo</label>
+    <input type="text" formControlName="title" />
+    <div
+      *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+      class="error"
+    >
+      <div *ngIf="form.get('title')?.hasError('required')" class="error">
+        El titulo es requerido.
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <label>Contenido</label>
+    <input type="text" formControlName="content" />
+    <div *ngIf="form.get('content')?.hasError('minlength')" class="error">
+      La contraseña debe tener al menos 6 caracteres.
+    </div>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Enviar</button>
+</form>

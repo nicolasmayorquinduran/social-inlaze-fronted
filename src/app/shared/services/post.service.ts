@@ -9,19 +9,19 @@ export class PostService {
   constructor(private apiService: ApiService) {}
 
   async getPostsByUserId(userId: number) {
-    return this.apiService.getList('users', { id: userId });
+    return this.apiService.getList('posts', { id: userId });
   }
 
   async getAllPosts() {
-    return this.apiService.getList('users');
+    return this.apiService.getList('posts');
   }
 
   async createPost(body: postEntityInterface) {
-    return this.apiService.postData('user', body);
+    return this.apiService.postData('post', body);
   }
 
   async updatePost(postId: number, body: Partial<postEntityInterface>) {
-    return this.apiService.putData('user', postId, body);
+    return this.apiService.putData('post', postId, body);
   }
 
   async deletePost(postId: number) {

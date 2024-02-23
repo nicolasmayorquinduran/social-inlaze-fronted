@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './main/main.module';
 import { AuthModule } from './auth/auth.module';
+import { MaterialModule } from './core/material/material.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     NoopAnimationsModule,
     MainModule,
     AuthModule,
+    MaterialModule,
   ],
   providers: [
     {
